@@ -1,0 +1,31 @@
+<h1>Schedule#index</h1>
+<table>
+  <tr>
+    <th></th>
+    <th>20<br>水</th>
+  </tr>
+  <!--  10:00から10分刻みでの時間を表示-->
+  <% start_time = Time.new(2023, 1, 1, 10, 0, 0) %>
+  <% end_time = Time.new(2023, 1, 1, 23, 50, 0) %>
+  <% current_time = start_time %>
+
+  <% while current_time <= end_time do %>
+    <tr>
+      <td>
+        <%= current_time.strftime("%H:%M") %>
+      </td>
+      <td>
+        <% if @reservations.any? { |r| r.includes_time?(current_time) } %>
+          ×
+        <% else %>
+          <% if @schedule.start_time <= current_time && current_time <= @schedule.end_time %>
+            ○
+          <% else %>
+            -
+          <% end %>
+        <% end %>
+      </td>
+    </tr>
+    <% current_time += 10.minutes %>
+  <% end %>
+</table>
