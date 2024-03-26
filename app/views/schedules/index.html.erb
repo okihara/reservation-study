@@ -1,0 +1,39 @@
+<% start_time = Time.new(2023, 1, 1, 10, 0, 0) %>
+<% end_time = Time.new(2023, 1, 1, 23, 50, 0) %>
+<% current_time = start_time %>
+<% wdays = ["日", "月", "火", "水", "木", "金", "土"] %>
+<h1><%= @staff.name %> さんの空き情報 <%= start_time.strftime("20%y年%m月") %></h1>
+<img src="<%= @staff.image_url %>" alt="<%= @staff.name %>">
+<table class="table-style">
+  <!--  10:00から10分刻みでの時間を表示-->
+  <tr>
+    <th></th>
+    <% 7.times do |n| %>
+      <% hoge_time = current_time + n.days %>
+      <th><%= hoge_time.strftime("%d") %><br><%= wdays[hoge_time.wday] %></th>
+    <% end %>
+  </tr>
+
+  <% while current_time <= end_time do %>
+    <tr>
+      <td>
+        <%= current_time.strftime("%H:%M") %>
+      </td>
+      <% 7.times do |n| %>
+        <td>
+          <% hoge_time = current_time + n.days %>
+          <% if @schedules.any? { |s| s.start_time <= hoge_time && hoge_time < s.end_time } %>
+            <% if @time_slots.any? { |ts| ts.can_reserve?(hoge_time) } %>
+              ○
+            <% else %>
+              ×
+            <% end %>
+          <% else %>
+            -
+          <% end %>
+        </td>
+      <% end %>
+    </tr>
+    <% current_time += 10.minutes %>
+  <% end %>
+</table>
