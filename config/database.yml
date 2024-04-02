@@ -50,6 +50,7 @@ test:
 #
 production:
   <<: *default
+  url: <%= ENV['CLEARDB_DATABASE_URL'] %>
   database: myapp_production
-  username: myapp
+  username: b076068349fc63
   password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
