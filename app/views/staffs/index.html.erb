@@ -1,29 +1,46 @@
-<p id="notice"><%= notice %></p>
+<% today = Date.parse('2023-01-01') %>
 
-<h1>Staffs</h1>
+<div class="container">
 
-<table>
-  <thead>
+  <p id="notice"><%= notice %></p>
+
+  <h1>スタッフ一覧</h1>
+  <table class="table table-striped">
+    <thead class="thead-dark">
     <tr>
-      <th >ID</th>
-      <th ></th>
-      <th ></th>
+      <th>ID</th>
+      <th>なまえ</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
-  </thead>
+    </thead>
 
-  <tbody>
+    <tbody>
     <% @staffs.each do |staff| %>
       <tr>
         <td><%= staff.id %></td>
+        <td>
+          <%= image_tag staff.image_url, class: 'img-thumbnail', width: '70' %>
+        </td>
         <td><%= staff.name %></td>
+        <% 5.times do |n| %>
+          <% top = staff.schedules.where('date = ?', today + n.days).first %>
+          <td><%= top&.start_time %></td>
+        <% end %>
         <td><%= link_to 'Show', staff %></td>
+        <td><%= link_to 'Show Schedule', "/schedules/#{staff.id}" %></td>
         <td><%= link_to 'Edit', edit_staff_path(staff) %></td>
         <td><%= link_to 'Destroy', staff, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
 
-<br>
+  <br>
 
-<%= link_to 'New Staff', new_staff_path %>
+  <%= link_to 'New Staff', new_staff_path %>
+
+</div>

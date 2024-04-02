@@ -1,4 +1,5 @@
 class Schedule < ApplicationRecord
+  belongs_to :staff
   has_many :reservations
   has_many :time_slots
 
@@ -6,6 +7,17 @@ class Schedule < ApplicationRecord
   validates :staff_id, uniqueness: { scope: [:start_time, :end_time] }
 
   after_create :create_time_slots
+
+  def self.search(duration = 90)
+    search_start_time = DateTime.parse("2023-01-01 15:30:00")
+    search_end_time = DateTime.parse("2023-01-01 19:30:00")
+
+    TimeSlot.where(reserved: false)
+            .where('(end_time - INTERVAL ? MINUTE) >= start_time', duration) # 90 分以上の予約かどうか
+            .where('(end_time - INTERVAL ? MINUTE) >= ?', duration, search_start_time)
+            .where('(end_time - INTERVAL ? MINUTE) <= ?', duration, search_end_time)
+            .group_by(&:schedule_id)
+  end
 
   # このスケジュール内に予約を作る
   def create_reservation(start_time, duration)

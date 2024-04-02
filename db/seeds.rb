@@ -10,6 +10,12 @@ staffs = Staff.create([{name: "もも"}, {name: "みつき"}, {name: "つらら"
 schedule = staffs[0].create_schedule("2023-01-01 11:00:00", "2023-01-01 17:00:00")
 schedule.create_reservation(DateTime.parse("2023-01-01 11:00:00"), 80.minutes)
 schedule.create_reservation(DateTime.parse("2023-01-01 13:00:00"), 80.minutes)
+schedule.create_reservation(DateTime.parse("2023-01-01 14:20:00"), 100.minutes)
 staffs[0].create_schedule("2023-01-02 13:00:00", "2023-01-02 19:00:00")
 
+staffs[1].create_schedule("2023-01-01 13:00:00", "2023-01-01 19:00:00")
 staffs[1].create_schedule("2023-01-02 13:00:00", "2023-01-02 19:00:00")
+
+staff_2_schedule = staffs[2].create_schedule("2023-01-01 14:00:00", "2023-01-01 20:00:00")
+staff_2_schedule.create_reservation(DateTime.parse("2023-01-01 15:30:00"), 30.minutes)
+staff_2_schedule.create_reservation(DateTime.parse("2023-01-01 17:30:00"), 70.minutes)
