@@ -30,10 +30,7 @@
           <% top = staff.schedules.where('date = ?', today + n.days).first %>
           <td><%= top&.start_time %></td>
         <% end %>
-        <td><%= link_to 'Show', staff %></td>
         <td><%= link_to 'Show Schedule', "/schedules/#{staff.id}" %></td>
-        <td><%= link_to 'Edit', edit_staff_path(staff) %></td>
-        <td><%= link_to 'Destroy', staff, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
     </tbody>

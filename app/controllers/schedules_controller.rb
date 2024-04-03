@@ -1,4 +1,9 @@
 class SchedulesController < ApplicationController
+
+  def home
+
+  end
+
   def index
     @staff = Staff.find(params[:staff_id])
     today = '2023-01-01'

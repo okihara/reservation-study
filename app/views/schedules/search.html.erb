@@ -1,4 +1,24 @@
-<h1>検索</h1>
+<h1>予約検索</h1>
+
+<%= form_with(url: search_path, method: :get, local: true) do |form| %>
+  <div class="field">
+    <%= form.label :start_time_from, "開始時間 (から)" %>
+    <%= form.time_field :start_time_from, value: params[:start_time_from] %>
+  </div>
+
+  <div class="field">
+    <%= form.label :start_time_to, "開始時間 (まで)" %>
+    <%= form.time_field :start_time_to, value: params[:start_time_to] %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "検索" %>
+  </div>
+<% end %>
+
+<hr>
+
+<h2>検索結果</h2>
 
 <p><%= @search_start_time.strftime("%H:%M") %>以降の予定を検索しました</p>
 

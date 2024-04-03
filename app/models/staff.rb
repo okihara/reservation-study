@@ -5,6 +5,7 @@ class Staff < ApplicationRecord
   end
 
   def image_url
-    # "/images/987SCHE.jpg"
+    "/images/987SCHE.jpg"
+    "/images/kesyou_jirai_make.png"
   end
 end
