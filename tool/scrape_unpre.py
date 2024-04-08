@@ -47,6 +47,9 @@ def fetch_staff_info(url):
         else:
             op = ''
 
+        # 出勤日を抽出
+        work_date = staff_div.find('td', class_='date').get_text(strip=True)
+
         # 出勤時間を抽出
         syukkin = staff_div.find('td', class_='syukkin').find('span').get_text(strip=True)
 
@@ -57,6 +60,7 @@ def fetch_staff_info(url):
             'size': size,
             'type': staff_type,
             'op': op,
+            'work_date': work_date,
             'syukkin': syukkin
         })
 

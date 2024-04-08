@@ -21,6 +21,7 @@
 <h2>検索結果</h2>
 
 <p><%= @search_start_time.strftime("%m/%d %H:%M") %>以降の予定を検索しました</p>
+<p><%= @search_start_time %></p>
 
 <% @time_slots.each do |key, v| %>
   <% staff = Schedule.find(key).staff %>

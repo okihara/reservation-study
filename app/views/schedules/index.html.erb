@@ -1,42 +1,40 @@
-<% start_time = Time.parse("#{@today_str} 10:00") %>
+<% start_time = @today + 10.hours %>
 <% end_time = start_time + 14.hours %>
 <% current_time = start_time %>
 <% wdays = ["日", "月", "火", "水", "木", "金", "土"] %>
 
-<div class="container">
-  <h1><%= @staff.name %> さんの空き情報 <%= start_time.strftime("20%y年%m月%d日から") %></h1>
-  <img src="<%= @staff.image_url %>" alt="<%= @staff.name %>">
-  <table class="table-style">
+<h1><%= @staff.name %> さんの空き情報 <%= start_time %>から</h1>
+<img src="<%= @staff.image_url %>" alt="<%= @staff.name %>">
+<table class="table-style">
+  <tr>
+    <th></th>
+    <% 7.times do |n| %>
+      <% temp_time = current_time + n.days %>
+      <th><%= temp_time.strftime("%d") %><br><%= wdays[temp_time.wday] %></th>
+    <% end %>
+  </tr>
+
+  <!--  10:00から10分刻みでの時間を表示-->
+  <% while current_time <= end_time do %>
     <tr>
-      <th></th>
+      <td>
+        <%= current_time.strftime("%H:%M") %>
+      </td>
       <% 7.times do |n| %>
-        <% hoge_time = current_time + n.days %>
-        <th><%= hoge_time.strftime("%d") %><br><%= wdays[hoge_time.wday] %></th>
+        <% temp_time = current_time + n.days %>
+        <% if @schedules.any? { |s| s.start_time <= temp_time && temp_time < s.end_time } %>
+          <% if @time_slots.any? { |ts| ts.can_reserve?(temp_time) } %>
+            <td class="available-slot">
+              <%= link_to '◯', "/hoge" %>
+            </td>
+          <% else %>
+            <td class="unavailable-slot"> ×</td>
+          <% end %>
+        <% else %>
+          <td class="unavailable-slot"> -</td>
+        <% end %>
       <% end %>
     </tr>
-
-    <!--  10:00から10分刻みでの時間を表示-->
-    <% while current_time <= end_time do %>
-      <tr>
-        <td>
-          <%= current_time.strftime("%H:%M") %>
-        </td>
-        <% 7.times do |n| %>
-          <% hoge_time = current_time + n.days %>
-          <% if @schedules.any? { |s| s.start_time <= hoge_time && hoge_time < s.end_time } %>
-            <% if @time_slots.any? { |ts| ts.can_reserve?(hoge_time) } %>
-              <td class="available-slot">
-                <%= link_to '◯', "/hoge" %>
-              </td>
-            <% else %>
-              <td class="unavailable-slot"> ×</td>
-            <% end %>
-          <% else %>
-            <td class="unavailable-slot"> -</td>
-          <% end %>
-        <% end %>
-      </tr>
-      <% current_time += 10.minutes %>
-    <% end %>
-  </table>
-</div>
+    <% current_time += 10.minutes %>
+  <% end %>
+</table>

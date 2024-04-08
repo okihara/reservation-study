@@ -12,11 +12,16 @@ class StaffsController < ApplicationController
           staff.update!(staff_params.permit(:age, :name, :op, :size, category: staff_params[:type]))
         end
 
+        # あんぷり固有になっている
+        m, d = staff_params[:work_date].gsub(/\(.*\)/, '').split('/')
+        logger.debug([staff_params[:work_date], m, d])
         start_time, end_time = staff_params[:syukkin].split(' - ')
-        start_date = "#{Time.current.strftime("%Y-%m-%d")} #{start_time}"
-        end_date = "#{Time.current.strftime("%Y-%m-%d")} #{end_time}"
+        time_current_strftime = Time.current.strftime("%Y-#{m}-#{d}")
+        start_date = "#{time_current_strftime} #{start_time}"
+        end_date = "#{time_current_strftime} #{end_time}"
 
-        staff.create_schedule(DateTime.parse(start_date), DateTime.parse(end_date))
+        logger.debug(start_date)
+        staff.create_schedule(Time.zone.parse(start_date), Time.zone.parse(end_date))
       end
 
       render json: { message: 'Staffs imported successfully' }, status: :created
@@ -29,7 +34,7 @@ class StaffsController < ApplicationController
   def index
     start_time = Time.current
     end_time = start_time + 23.hours
-    today_schedule = Schedule.where('date >= ? AND date <= ?', start_time.strftime('%Y-%m-%d'), end_time.strftime('%Y-%m-%d')).order(:start_time)
+    today_schedule = Schedule.where('date >= ? AND date <= ?', start_time, end_time).order(:start_time)
     @staffs = today_schedule.map(&:staff).uniq
   end
 

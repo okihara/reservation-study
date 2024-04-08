@@ -86,3 +86,32 @@ nav a {
     color: #333;
     font-size: 18px;
 }
+
+.time_slot {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.time_slot h3 {
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.time_slot img {
+    max-width: 100px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.time_slot ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.time_slot li {
+    margin-bottom: 5px;
+}
