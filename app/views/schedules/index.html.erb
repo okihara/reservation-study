@@ -1,10 +1,10 @@
-<% start_time = Time.new(2023, 1, 1, 10, 0, 0) %>
-<% end_time = Time.new(2023, 1, 1, 23, 50, 0) %>
+<% start_time = Time.parse("#{@today_str} 10:00") %>
+<% end_time = start_time + 14.hours %>
 <% current_time = start_time %>
 <% wdays = ["日", "月", "火", "水", "木", "金", "土"] %>
 
 <div class="container">
-  <h1><%= @staff.name %> さんの空き情報 <%= start_time.strftime("20%y年%m月") %></h1>
+  <h1><%= @staff.name %> さんの空き情報 <%= start_time.strftime("20%y年%m月%d日から") %></h1>
   <img src="<%= @staff.image_url %>" alt="<%= @staff.name %>">
   <table class="table-style">
     <tr>

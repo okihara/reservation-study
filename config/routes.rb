@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   post "/schedules/:staff_id/confirm", to: "schedules#confirm"
   get "/search", to: "schedules#search"
   get "/staffs", to: "staffs#index"
+  post "/staffs/import", to: "staffs#import"
 end

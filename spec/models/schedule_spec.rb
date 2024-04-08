@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: schedules
+#
+#  id         :bigint           not null, primary key
+#  date       :date             not null
+#  end_time   :datetime         not null
+#  start_time :datetime         not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  staff_id   :bigint           not null
+#
+# Indexes
+#
+#  index_schedules_on_staff_id  (staff_id)
+#
 require 'rails_helper'
 
 RSpec.describe Schedule, type: :model do

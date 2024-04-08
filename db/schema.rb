@@ -23,7 +23,12 @@ ActiveRecord::Schema.define(version: 2024_03_26_111108) do
   end
 
   create_table "staffs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "name"
+    t.string "staff_id", null: false
+    t.string "name", null: false
+    t.integer "age"
+    t.string "size"
+    t.string "category"
+    t.string "op"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

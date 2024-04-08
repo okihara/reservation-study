@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: schedules
+#
+#  id         :bigint           not null, primary key
+#  date       :date             not null
+#  end_time   :datetime         not null
+#  start_time :datetime         not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  staff_id   :bigint           not null
+#
+# Indexes
+#
+#  index_schedules_on_staff_id  (staff_id)
+#
 class Schedule < ApplicationRecord
   belongs_to :staff
   has_many :reservations
@@ -8,10 +24,7 @@ class Schedule < ApplicationRecord
 
   after_create :create_time_slots
 
-  def self.search(duration = 90)
-    search_start_time = DateTime.parse("2023-01-01 15:30:00")
-    search_end_time = DateTime.parse("2023-01-01 19:30:00")
-
+  def self.search(search_start_time, search_end_time, duration = 90)
     TimeSlot.where(reserved: false)
             .where('(end_time - INTERVAL ? MINUTE) >= start_time', duration) # 90 分以上の予約かどうか
             .where('(end_time - INTERVAL ? MINUTE) >= ?', duration, search_start_time)

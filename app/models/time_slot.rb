@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: time_slots
+#
+#  id          :bigint           not null, primary key
+#  end_time    :datetime         not null
+#  reserved    :boolean          default(FALSE), not null
+#  start_time  :datetime         not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  schedule_id :bigint           not null
+#  user_id     :bigint
+#
+# Indexes
+#
+#  index_time_slots_on_schedule_id  (schedule_id)
+#
 class TimeSlot < ApplicationRecord
   belongs_to :schedule
 
@@ -21,6 +38,7 @@ class TimeSlot < ApplicationRecord
     if start_time < search_start_time
       search_start_time
     else
+      logger.debug("start_time: #{start_time}, #{start_time.class}, search_start_time: #{search_start_time}")
       start_time
     end.strftime("%H:%M スタートで予約可能")
   end
