@@ -23,14 +23,14 @@
 <p><%= @search_start_time.strftime("%m/%d %H:%M") %>以降の予定を検索しました</p>
 <p><%= @search_start_time %></p>
 
-<% @time_slots.each do |key, v| %>
-  <% staff = Schedule.find(key).staff %>
+<% @time_slots.each do |_, v| %>
+  <% staff = v.first.schedule.staff %>
   <div class="time_slot">
     <h3><%= link_to staff.name, "/schedules/#{staff.id}" %></h3>
     <img src="<%= staff.image_url %>" alt="">
     <ul>
       <% v.each do |time_slot| %>
-        <li><%= "#{time_slot.actual_start_time(@search_start_time)}, #{time_slot.duration / 60}" %></li>
+        <li><%= link_to "#{time_slot.actual_start_time(@search_start_time)} スタートで予約", "/confirm", class: "btn btn-primary" %></li>
       <% end %>
     </ul>
   </div>

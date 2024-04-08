@@ -40,6 +40,6 @@ class TimeSlot < ApplicationRecord
     else
       logger.debug("start_time: #{start_time}, #{start_time.class}, search_start_time: #{search_start_time}")
       start_time
-    end.strftime("%m/%d %H:%M スタートで予約可能 %z")
+    end.strftime("%m/%d %H:%M %z")
   end
 end

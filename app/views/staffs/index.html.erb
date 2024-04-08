@@ -1,34 +1,17 @@
-<% today = Date.parse('2023-01-01') %>
-
-<p id="notice"><%= notice %></p>
-
-<h1>スタッフ一覧</h1>
+<h1>セラピストを選択</h1>
+<p><%= @start_date %> に出勤予定</p>
 <table class="table table-striped">
-  <thead class="thead-dark">
-  <tr>
-    <th>ID</th>
-    <th>なまえ</th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-  </thead>
-
   <tbody>
-  <% @staffs.each do |staff| %>
+  <% @schedules.each do |schedule| %>
+    <% staff = schedule.staff %>
     <tr>
-      <td><%= staff.id %></td>
+      <td><%= staff.staff_id %></td>
       <td>
         <%= image_tag staff.image_url, class: 'img-thumbnail', width: '70' %>
       </td>
       <td><%= staff.name %></td>
-      <% 5.times do |n| %>
-        <% top = staff.schedules.where('date = ?', today + n.days).first %>
-        <td><%= top&.start_time %></td>
-      <% end %>
-      <td><%= link_to 'Show Schedule', "/schedules/#{staff.id}" %></td>
+      <td><%= "#{schedule.start_time.strftime('%H:%M')} - #{schedule.end_time.strftime('%H:%M')}" %></td>
+      <td><%= link_to '選択する', "/schedules/#{staff.id}", class: "btn btn-primary btn-lg" %></td>
     </tr>
   <% end %>
   </tbody>
