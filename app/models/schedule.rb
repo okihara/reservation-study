@@ -38,7 +38,7 @@ class Schedule < ApplicationRecord
 
     # トランザクション
     ActiveRecord::Base.transaction do
-      base_slot = time_slots.where('start_time <= ? AND ? <= end_time', start_time, end_time).where(reserved: false).first!
+      base_slot = time_slots.where('start_time <= ? AND end_time >= ?', start_time, end_time).where(reserved: false).first!
 
       reserved_slot = time_slots.create!(start_time: start_time, end_time: end_time, reserved: true)
 

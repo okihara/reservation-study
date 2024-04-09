@@ -1,40 +1,50 @@
 <h1>予約確認</h1>
 
-<ul>
-  <li>スタッフ名: <%= @staff.name %></li>
-  <li>コース名: <%= "天国コース" %></li>
-  <li>予約日時: <%= params[:start_time] %></li>
-</ul>
+<div class="container" style="width: 40em;">
+  <table class="table">
+    <tr>
+      <th>スタッフ名</th>
+      <td><%= @staff.name %></td>
+    </tr>
+    <tr>
+      <th>コース名</th>
+      <td><%= "天国コース" %></td>
+    </tr>
+    <tr>
+      <th>予約日時</th>
+      <td><%= params[:start_time] %></td>
+    </tr>
+  </table>
 
-<%= form_with(url: 'reservations_path', method: :post, local: true) do |form| %>
-  <%= form.hidden_field :staff_id, value: params[:staff_id] %>
-  <%= form.hidden_field :start_time, value: params[:start_time] %>
+  <%= form_with(url: "/reserve/staff/#{@staff.id}", method: :post, local: true) do |form| %>
+    <%= form.hidden_field :staff_id, value: params[:staff_id] %>
+    <%= form.hidden_field :start_time, value: params[:start_time] %>
 
-  <div class="form-group row">
-    <%= form.label :name, '名前', class: 'col-sm-2 col-form-label' %>
-    <div class="col-sm-10">
-      <%= form.text_field :name, class: 'form-control', required: true %>
+    <div class="form-group row">
+      <%= form.label :name, '名前', class: 'col-sm-2 col-form-label' %>
+      <div class="col-sm-10">
+        <%= form.text_field :name, class: 'form-control', required: false %>
+      </div>
     </div>
-  </div>
 
-  <div class="form-group row">
-    <%= form.label :phone_number, '電話番号', class: 'col-sm-2 col-form-label' %>
-    <div class="col-sm-10">
-      <%= form.text_field :phone_number, class: 'form-control', required: true %>
+    <div class="form-group row">
+      <%= form.label :phone_number, '電話番号', class: 'col-sm-2 col-form-label' %>
+      <div class="col-sm-10">
+        <%= form.text_field :phone_number, class: 'form-control', required: false %>
+      </div>
     </div>
-  </div>
 
-  <div class="form-group row">
-    <%= form.label :email, 'メールアドレス', class: 'col-sm-2 col-form-label' %>
-    <div class="col-sm-10">
-      <%= form.email_field :email, class: 'form-control', required: true %>
+    <div class="form-group row">
+      <%= form.label :email, 'メールアドレス', class: 'col-sm-2 col-form-label' %>
+      <div class="col-sm-10">
+        <%= form.email_field :email, class: 'form-control', required: false %>
+      </div>
     </div>
-  </div>
 
-  <div class="form-group row">
-    <div class="col-sm-10 offset-sm-2">
-      <%= form.submit '予約する', class: 'btn btn-primary' %>
-      <%= link_to '戻る', :back, class: 'btn btn-secondary' %>
+    <div class="form-group row">
+      <div class="col-sm-10 offset-sm-2">
+        <%= form.submit '予約する', class: 'btn btn-primary' %>
+      </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
+</div>

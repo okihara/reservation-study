@@ -18,7 +18,7 @@
 class TimeSlot < ApplicationRecord
   belongs_to :schedule
 
-  BOTTOM_RESERVE_MINUTES = 0
+  BOTTOM_RESERVE_MINUTES = 90
 
   def can_reserve?(time)
     return false if duration(time) / 60 < BOTTOM_RESERVE_MINUTES
@@ -40,6 +40,6 @@ class TimeSlot < ApplicationRecord
     else
       logger.debug("start_time: #{start_time}, #{start_time.class}, search_start_time: #{search_start_time}")
       start_time
-    end.strftime("%m/%d %H:%M %z")
+    end
   end
 end

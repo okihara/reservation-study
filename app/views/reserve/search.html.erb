@@ -30,7 +30,7 @@
     <img src="<%= staff.image_url %>" alt="">
     <ul>
       <% v.each do |time_slot| %>
-        <li><%= link_to "#{time_slot.actual_start_time(@search_start_time)} スタートで予約", "/reserve/staff/#{staff.id}/confirm?start_time=#{time_slot.start_time}", class: "btn btn-primary" %></li>
+        <li><%= link_to "#{time_slot.actual_start_time(@search_start_time).strftime("%m/%d %H:%M")} スタートで予約", confirm_path(staff.id, time_slot.actual_start_time(@search_start_time)), class: "btn btn-primary" %></li>
       <% end %>
     </ul>
   </div>

@@ -31,4 +31,12 @@ class ReserveController < ApplicationController
   def confirm
     @staff = Staff.find(params[:staff_id])
   end
+
+  def create_reservation
+    @staff = Staff.find(params[:staff_id])
+    @duration = 90.minutes
+    @schedule = @staff.schedules.find_by!(date: Time.zone.today)
+    @schedule.create_reservation(Time.zone.parse(params[:start_time]), @duration)
+    redirect_to '/'
+  end
 end
