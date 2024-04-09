@@ -30,14 +30,6 @@ class StaffsController < ApplicationController
     end
   end
 
-  # GET /staffs or /staffs.json
-  def index
-    @start_date = Time.zone.today
-    @end_date = @start_date + 1.days
-    @schedules = Schedule.where('date >= ? AND date <= ?', @start_date, @end_date).includes(:staff).order(:start_time)
-    @staffs = @schedules.map(&:staff).uniq
-  end
-
   private
 
   # Use callbacks to share common setup or constraints between actions.

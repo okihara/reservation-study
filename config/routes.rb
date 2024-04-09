@@ -1,10 +1,8 @@
 Rails.application.routes.draw do
-  resources :staffs
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  get "/", to: "schedules#home"
-  get "/schedules/:staff_id", to: "schedules#index"
-  post "/schedules/:staff_id/confirm", to: "schedules#confirm"
-  get "/search", to: "schedules#search"
-  get "/staffs", to: "staffs#index"
+  get "/", to: "reserve#home"
+  get "/reserve/search", to: "reserve#search"
+  get "/reserve/staffs", to: "reserve#staff_all"
+  get "/reserve/staff/:staff_id", to: "reserve#schedule"
+  get "/reserve/staff/:staff_id/confirm", to: "reserve#confirm"
   post "/staffs/import", to: "staffs#import"
 end

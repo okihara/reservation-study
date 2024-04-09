@@ -1,10 +1,9 @@
-class SchedulesController < ApplicationController
-
+class ReserveController < ApplicationController
   def home
 
   end
 
-  def index
+  def schedule
     @staff = Staff.find(params[:staff_id])
     @today = Time.zone.today # + 10.hours # 10:00 から表示
     @schedules = @staff.schedules.where('date >= ?', @today)
@@ -22,7 +21,14 @@ class SchedulesController < ApplicationController
     @search_start_time = search_start_time
   end
 
-  def confirm
+  def staff_all
+    @start_date = Time.zone.today
+    @end_date = @start_date + 1.days
+    @schedules = Schedule.where('date >= ? AND date <= ?', @start_date, @end_date).includes(:staff).order(:start_time)
+    @staffs = @schedules.map(&:staff).uniq
+  end
 
+  def confirm
+    @staff = Staff.find(params[:staff_id])
   end
 end

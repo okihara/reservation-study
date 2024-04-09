@@ -11,7 +11,7 @@
       </td>
       <td><%= staff.name %></td>
       <td><%= "#{schedule.start_time.strftime('%H:%M')} - #{schedule.end_time.strftime('%H:%M')}" %></td>
-      <td><%= link_to '選択する', "/schedules/#{staff.id}", class: "btn btn-primary btn-lg" %></td>
+      <td><%= link_to '選択する', "/reserve/staff/#{staff.id}", class: "btn btn-primary btn-lg" %></td>
     </tr>
   <% end %>
   </tbody>

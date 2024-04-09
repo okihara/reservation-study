@@ -1,6 +1,6 @@
 <h1>予約検索</h1>
 
-<%= form_with(url: search_path, method: :get, local: true) do |form| %>
+<%= form_with(url: reserve_search_path, method: :get, local: true) do |form| %>
   <div class="field">
     <%= form.label :start_time_from, "開始時間 (から)" %>
     <%= form.time_field :start_time_from, value: params[:start_time_from] %>
@@ -26,11 +26,11 @@
 <% @time_slots.each do |_, v| %>
   <% staff = v.first.schedule.staff %>
   <div class="time_slot">
-    <h3><%= link_to staff.name, "/schedules/#{staff.id}" %></h3>
+    <h3><%= link_to staff.name, "/reserve/#{staff.id}" %></h3>
     <img src="<%= staff.image_url %>" alt="">
     <ul>
       <% v.each do |time_slot| %>
-        <li><%= link_to "#{time_slot.actual_start_time(@search_start_time)} スタートで予約", "/confirm", class: "btn btn-primary" %></li>
+        <li><%= link_to "#{time_slot.actual_start_time(@search_start_time)} スタートで予約", "/reserve/staff/#{staff.id}/confirm?start_time=#{time_slot.start_time}", class: "btn btn-primary" %></li>
       <% end %>
     </ul>
   </div>
