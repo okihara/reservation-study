@@ -22,3 +22,6 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+### キャスト情報インポート
+`curl -X POST -H "Content-Type: application/json" -d @./tmp/staffs.json https://test.yoyakusan.com/staffs/import > ./tmp/hoge.html;open ./tmp/hoge.html`

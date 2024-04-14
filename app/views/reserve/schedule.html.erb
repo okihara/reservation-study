@@ -28,10 +28,10 @@
               <%= link_to '◯', confirm_path(@staff.id, temp_time) %>
             </td>
           <% else %>
-            <td class="unavailable-slot"> ×</td>
+            <td class="unavailable-slot">✖️</td>
           <% end %>
         <% else %>
-          <td class="unavailable-slot"> -</td>
+          <td class="unavailable-slot">-</td>
         <% end %>
       <% end %>
     </tr>

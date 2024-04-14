@@ -7,6 +7,7 @@
 #  category   :string(255)
 #  name       :string(255)      not null
 #  op         :string(255)
+#  photo_name :string(255)
 #  size       :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null

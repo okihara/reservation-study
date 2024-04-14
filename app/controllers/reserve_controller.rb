@@ -11,12 +11,31 @@ class ReserveController < ApplicationController
   end
 
   def search
-    search_start_time = Time.zone.today + 15.5.hours
-    search_end_time = search_start_time + 4.hours
+    @start_time_from = params[:start_time_from]
+
+    now = Time.zone.now
+    search_time_from_now = Time.new(now.year, now.month, now.day, now.hour, (now.min / 10) * 10, 0, '+09:00') + 30.minutes
+
+    search_start_time = if @start_time_from.present?
+                          h, m = @start_time_from.split(':')
+                          Time.new(now.year, now.month, now.day, h, m, 0, '+09:00')
+                        else
+                          @start_time_from = search_time_from_now.strftime('%H:%M')
+                          search_time_from_now
+                        end
+
+    @select_array = []
+    temp_time = search_time_from_now
+    tomorrow = Time.zone.today + 24.hours
+    while temp_time < tomorrow
+      @select_array << temp_time.strftime('%H:%M')
+      temp_time += 10.minutes # 10分刻み
+    end
 
     # 希望した開始日時より、スタートが同じか早いタイムスロットを取得
     # 希望した終了日時より、エンドがちょうどか遅いタイムスロットを取得
-    @time_slots = Schedule.search(search_start_time, search_end_time, 90)
+    # @shop.search
+    @time_slots = Schedule.search(search_start_time, nil, 90)
 
     @search_start_time = search_start_time
   end

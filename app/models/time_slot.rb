@@ -18,7 +18,7 @@
 class TimeSlot < ApplicationRecord
   belongs_to :schedule
 
-  BOTTOM_RESERVE_MINUTES = 90
+  BOTTOM_RESERVE_MINUTES = 0
 
   def can_reserve?(time)
     return false if duration(time) / 60 < BOTTOM_RESERVE_MINUTES

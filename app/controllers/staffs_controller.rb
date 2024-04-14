@@ -7,15 +7,13 @@ class StaffsController < ApplicationController
 
     if staffs.present?
       staffs.each do |staff_params|
-        staff = Staff.find_or_initialize_by(staff_id: staff_params[:id])
-        if staff.new_record?
-          staff.update!(staff_params.permit(:age, :name, :op, :size, category: staff_params[:type]))
-        end
+        staff = Staff.find_or_initialize_by(staff_id: staff_params[:staff_id])
+        staff.update!(staff_params.permit(:age, :name, :op, :size, :photo_name))
 
         # あんぷり固有になっている
-        m, d = staff_params[:work_date].gsub(/\(.*\)/, '').split('/')
+        m, d = staff_params[:work_date].split('/')
         logger.debug([staff_params[:work_date], m, d])
-        start_time, end_time = staff_params[:syukkin].split(' - ')
+        start_time, end_time = staff_params[:working_time]
         time_current_strftime = Time.current.strftime("%Y-#{m}-#{d}")
         start_date = "#{time_current_strftime} #{start_time}"
         end_date = "#{time_current_strftime} #{end_time}"

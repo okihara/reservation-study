@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2024_03_26_111108) do
 
-  create_table "reserve", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "schedules", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "staff_id", null: false
     t.date "date", null: false
     t.datetime "start_time", null: false
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2024_03_26_111108) do
     t.string "size"
     t.string "category"
     t.string "op"
+    t.string "photo_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: reserve
+# Table name: schedules
 #
 #  id         :bigint           not null, primary key
 #  date       :date             not null
@@ -24,11 +24,12 @@ class Schedule < ApplicationRecord
 
   after_create :create_time_slots
 
-  def self.search(search_start_time, search_end_time, duration = 90)
+  # def self.search(search_start_time, search_end_time, duration = 90)
+  def self.search(search_start_time, _search_end_time, duration = 90)
     TimeSlot.where(reserved: false)
             .where('(end_time - INTERVAL ? MINUTE) >= start_time', duration) # 90 分以上の予約かどうか
             .where('(end_time - INTERVAL ? MINUTE) >= ?', duration, search_start_time)
-            .where('(end_time - INTERVAL ? MINUTE) <= ?', duration, search_end_time)
+            # .where('(end_time - INTERVAL ? MINUTE) <= ?', duration, search_end_time)
             .group_by(&:schedule_id)
   end
 

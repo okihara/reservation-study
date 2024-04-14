@@ -7,6 +7,7 @@
 #  category   :string(255)
 #  name       :string(255)      not null
 #  op         :string(255)
+#  photo_name :string(255)
 #  size       :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -19,7 +20,6 @@ class Staff < ApplicationRecord
   end
 
   def image_url
-    "/images/987SCHE.jpg"
-    "/images/kesyou_jirai_make.png"
+    "/images/#{photo_name}"
   end
 end

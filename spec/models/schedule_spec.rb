@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: reserve
+# Table name: schedules
 #
 #  id         :bigint           not null, primary key
 #  date       :date             not null
